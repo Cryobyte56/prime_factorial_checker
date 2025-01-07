@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Number and Factorial</title>
+
+    <!-- Bootstrap CSS and Javascript -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="main" style="display: flex; justify-content: center; align-items: center; margin: 0; height: 100vh; background: linear-gradient(135deg, #00416A, #000000, #44000D);">
+    <div class="container shadow p-5 mb-5 rounded" style="background-color: rgba(255, 252, 247, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(20px);  display: flex; flex-direction: column; justify-content: center; align-items: center; height: fit-content; border-radius: 2rem;">
+        
+        <!-- Title Section -->
+        <div class="header py-5 text-white" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 4rem;">
+            <h1>Prime Number and Factorial Checker</h1>
+            <h3>Programmed By: Daniel Valdez</h3>
+        </div>
+
+        <!-- User Inputs and Buttons -->
+        <div class="input-group mb-5">
+            <input type="text" class="form-control" id="numberInput" placeholder="Enter a Number" style="box-shadow: none;">
+            <div class="input-group-append">
+                <button class="btn btn-danger" id="resetButton" type="button" style="box-shadow: none;">Reset</button>
+                <button class="btn btn-success" id="submitButton" type="button" style="box-shadow: none;">Submit</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+         <div class="results text-center" style="display: flex; padding: 0 15px 0 15px;">
+
+            <!-- For Prime Checking -->
+            <div class="card text-white bg-warning mb-3 mx-5" style="max-width: 18rem; min-width: 18rem; max-height: 10rem; min-height: 08rem;">
+                <div class="card-header">Prime Result</div>
+                <div class="card-body">
+                    <h5 class="card-title" id="prime-result"></h5>
+                </div>
+            </div>
+
+            <!-- For Factorial Result -->
+            <div class="card text-white bg-info mb-3 mx-5" style="max-width: 18rem; min-width: 18rem; max-height: 10rem; min-height: 10rem;">
+                <div class="card-header">Factorial Result</div>
+                <div class="card-body">
+                    <h5 class="card-title" id="factorial-result"></h5>
+                </div>
+            </div>
+         </div>
+
+    </div>
+</div>
+</body>
+
+<!-- Handle Dynamic User Input without Reloading the Page when Submitting to Server Side or PHP Script -->
+<script>
+    document.getElementById('submitButton').addEventListener('click', function () {
+        const number = document.getElementById('numberInput').value;
+
+         // Empty Validation
+        if (!number) {
+            document.getElementById('prime-result').innerText = 'Please enter a number.';
+            document.getElementById('factorial-result').innerText = 'Please enter a number.';
+            return;
+        }
+
+        // Whole Num Validation
+        if (!/^\d+$/.test(number)) {
+            document.getElementById('prime-result').innerText = 'Please enter a valid whole number.';
+            document.getElementById('factorial-result').innerText = 'Please enter a valid whole number.';
+            return;
+        }
+
+        // Reset Previous Validation
+        document.getElementById('prime-result').innerText = '';
+        document.getElementById('factorial-result').innerText = '';
+
+         // AJAX request to PHP script
+        fetch('results.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'number=' + encodeURIComponent(number)
+        })
+            .then(response => response.json()) 
+            .then(data => {
+                // Display Prime Result
+                document.getElementById('prime-result').innerText = data.prime;
+
+                // Display Factorial Result
+                document.getElementById('factorial-result').innerText = `${data.factorial}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('prime-result').innerText = 'An Error Occured';
+                document.getElementById('factorial-result').innerText = 'An Error Occured';
+            });
+    });
+
+    // Reset Input and Results
+    document.getElementById('resetButton').addEventListener('click', function () {
+        document.getElementById('numberInput').value = '';
+        document.getElementById('prime-result').innerText = '';
+        document.getElementById('factorial-result').innerText = '';
+    });
+</script>
+
+</html>

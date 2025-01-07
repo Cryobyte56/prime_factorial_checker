@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function primeCheck($number)
     {
         if ($number <= 1) return "Not Prime";
-        
+
         // Use Square Root to Check Faster in Terms of Time Complexity to Avoid Checking Until n($number)
         // Time Complexity: O(n)
         for ($i = 2; $i <= sqrt($number); $i++) {
@@ -22,8 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($number === 0) return 1;
 
         // Too Large Validation
-        if ($number > 170) {
-            return "Factorial too Large to Compute";
+        $maxFactorialInput = 170;
+        if ($number > $maxFactorialInput) {
+            return "Too Large to Compute (Maximum of: " . $maxFactorialInput . ")";
         }
 
         $factorial = 1;

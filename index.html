@@ -20,7 +20,7 @@
     <div class="container shadow p-5 mb-5 rounded" style="background-color: rgba(255, 252, 247, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(20px);  display: flex; flex-direction: column; justify-content: center; align-items: center; height: fit-content; border-radius: 2rem;">
         
         <!-- Title Section -->
-        <div class="header py-5 text-white" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 4rem;">
+        <div class="header py-5 text-white text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 4rem;">
             <h1>Prime Number and Factorial Checker</h1>
             <h3>Programmed By: Daniel Valdez</h3>
         </div>
@@ -38,7 +38,7 @@
          <div class="results text-center" style="display: flex; padding: 0 15px 0 15px;">
 
             <!-- For Prime Checking -->
-            <div class="card text-white bg-warning mb-3 mx-5" style="max-width: 18rem; min-width: 18rem; max-height: 10rem; min-height: 08rem;">
+            <div class="card text-black bg-light mb-3 mx-5" style="max-width: 18rem; min-width: 18rem; max-height: 10rem; min-height: 08rem;">
                 <div class="card-header">Prime Result</div>
                 <div class="card-body">
                     <h5 class="card-title" id="prime-result"></h5>
@@ -46,7 +46,7 @@
             </div>
 
             <!-- For Factorial Result -->
-            <div class="card text-white bg-info mb-3 mx-5" style="max-width: 18rem; min-width: 18rem; max-height: 10rem; min-height: 10rem;">
+            <div class="card text-black bg-light mb-3 mx-5" style="max-width: 18rem; min-width: 18rem; max-height: 10rem; min-height: 10rem;">
                 <div class="card-header">Factorial Result</div>
                 <div class="card-body">
                     <h5 class="card-title" id="factorial-result"></h5>
@@ -65,15 +65,15 @@
 
          // Empty Validation
         if (!number) {
-            document.getElementById('prime-result').innerText = 'Please enter a number.';
-            document.getElementById('factorial-result').innerText = 'Please enter a number.';
+            document.getElementById('prime-result').innerText = 'Please Enter a Number.';
+            document.getElementById('factorial-result').innerText = 'Please Enter a Number.';
             return;
         }
 
         // Whole Num Validation
         if (!/^\d+$/.test(number)) {
-            document.getElementById('prime-result').innerText = 'Please enter a valid whole number.';
-            document.getElementById('factorial-result').innerText = 'Please enter a valid whole number.';
+            document.getElementById('prime-result').innerText = 'Please Enter a Valid Whole Number.';
+            document.getElementById('factorial-result').innerText = 'Please Enter a Valid Whole Number.';
             return;
         }
 
@@ -111,3 +111,90 @@
 </script>
 
 </html>
+
+<!-- Mobile Responsiveness -->
+<style>@media (max-width: 768px) {
+    /* Adjust the container and main section */
+    .main {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 10px;
+    }
+    .container {
+        width: 90%;
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    .header{
+        padding: 0px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    .header h3 {
+        font-size: 1.2rem;
+    }
+    .input-group {
+        width: 100%;
+    }
+
+    #submitButton
+    {
+        border-radius: 0px;
+    }
+
+    #numberInput{
+        border-radius: 0px;
+    }
+    
+    .input-group .form-control {
+        margin-bottom: 10px;
+    }
+    .input-group-append {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .results {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .card {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    .header h3 {
+        font-size: 1rem;
+    }
+
+    #submitButton
+    {
+        border-radius: 0px;
+    }
+
+    #numberInput{
+        border-radius: 0px;
+    }
+
+    .card {
+        max-width: 100%;
+        min-width: 100%;
+    }
+    .input-group .form-control {
+        font-size: 1rem;
+    }
+    .input-group-append button {
+        font-size: 1rem;
+    }
+}
+</style>
